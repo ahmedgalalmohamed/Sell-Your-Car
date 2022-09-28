@@ -1,0 +1,285 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model CarUserVM
+@{
+
+}
+
+<form id="myform" asp-action="Create" asp-controller="Car" method="post" enctype="multipart/form-data">
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.VIN">VIN<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="car.VIN" placeholder="Enter VIN" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.VIN"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.price">Price<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <div class="input-group-text">$</div>
+                <input class="form-control" asp-for="car.price" value="50000" placeholder="Enter price" />
+            </div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.price"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Location">Location<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="car.Location" placeholder="Enter Location" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Location"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Fuel">Choose Fuel<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="car.Fuel">
+                <option value="Gas">Gas</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Electric">Electric</option>
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Fuel"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Speed">Speed<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <div class="input-group-text">km/h</div>
+                <input class="form-control" asp-for="car.Speed" value="100" placeholder="Enter Speed" />
+            </div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Speed"></span>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.ShiftLever">ShiftLever<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="car.ShiftLever">
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.ShiftLever"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Wheels">Wheels<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="car.Wheels">
+                <option value="Steel_Wheels">Steel Wheels</option>
+                <option value="Alloy_Wheels">Alloy Wheels</option>
+                <option value="Chrome_Wheels">Chrome Wheels</option>
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Wheels"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Color">Color<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control form-control-color" type="color" asp-for="car.Color" placeholder="Enter Color" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Color"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.Usage">Usage<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="car.Usage">
+                <option value="Used">Usage</option>
+                <option value="New">New</option>
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.Usage"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="files">Image</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control" id="files" name="files" placeholder="Choose Image" accept="image/*" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="bodystyleid">Choose BodyStyle<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" id="bodystyleid" name="bodystyleid">
+                <option value="0" selected>None</option>
+                @foreach (var item in Model.BodyStyles)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="makerid">Choose Maker<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" id="makerid" name="makerid">
+                <option value="0" selected>None</option>
+                @foreach (var item in Model.Makers)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="yearmodel">Year Model<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" type="number" max="2023" min="1980" value="2016" id="yearmodel" name="yearmodel" placeholder="Enter Yearmodel" required />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="car.ModelId">Choose Model<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <select class="form-select" asp-for="car.ModelId">
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="car.ModelId"></span>
+        </div>
+    </div>
+
+
+
+    <div class="row mb-3">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <input type="button" class="btn btn-back" id="btnsubmit" value="Add Car" />
+            <input type="reset" class="btn btn-dark" value="Reset" />
+        </div>
+    </div>
+
+</form>
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+
+        $("#bodystyleid").change(function() {
+            selectsmodel();
+        });
+
+        $("#yearmodel").change(function() {
+            selectsmodel();
+        });
+
+        $("#makerid").change(function() {
+            selectsmodel();
+        });
+
+        function selectsmodel() {
+            var modelid = $("#car_ModelId")
+            var yearmodel = $("#yearmodel").val();
+            var makerid = $("#makerid").val();
+            var bodystyle = $("#bodystyleid").val();
+            modelid.empty();
+            $.post("Model/Modelfilter", {
+                makerid: makerid,
+                bodystyleid: bodystyle,
+                yearmodelid: yearmodel
+            }, function(data, status, xhr) {
+                $.each(data, function(i, item) {
+                    modelid.append($('<option>', {
+                        value: item.id,
+                        text: item.name
+                    }));
+                });
+            });
+        }
+
+        $("#btnsubmit").click(function() {
+            var VIN = $("#car_VIN");
+            var form = $("#myform");
+            $.post("Car/checkVIN", { VIN: VIN.val() }, function(data) {
+                if (data == false) {
+                    if (form.valid()) {
+                        var formsss = new FormData();
+                        var fileData = $("#files")[0].files[0];
+                        formsss.append("fileinp", fileData);
+                        formsss.append("car.VIN", $("#car_VIN").val());
+                        console.log($("#car_VIN").val());
+                        formsss.append("car.Location", $("#car_Location").val());
+                        formsss.append("car.price", $("#car_price").val());
+                        formsss.append("car.Fuel", $("#car_Fuel").val());
+                        formsss.append("car.Speed", $("#car_Speed").val());
+                        formsss.append("car.ShiftLever", $("#car_ShiftLever").val());
+                        formsss.append("car.Wheels", $("#car_Wheels").val());
+                        formsss.append("car.Color", $("#car_Color").val());
+                        formsss.append("car.Usage", $("#car_Usage").val());
+                        formsss.append("car.ModelId", $("#car_ModelId").val());
+
+                        $.ajax({
+                            type: "POST",
+                            url: form.attr("action"),
+                            data: formsss,
+                            processData: false,
+                            contentType: false,
+                            success: function() {
+                                form.trigger("reset");
+                                $("#p-content").load('@Url.Action("Create","Car",new{x=true})');
+                                $("div.log").show().fadeOut(4000).text("Added").removeClass("alert-danger").addClass("alert-info");
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert(xhr.status);
+                                alert(thrownError);
+                            }
+                        });
+                    }
+                    else {
+                        $("#myform").submit();
+                    }
+                }
+                else {
+                    $("div.log").show().fadeOut(4000).text("This VIN Found").removeClass("alert-info").addClass("alert-danger");
+                }
+            });
+        });
+
+
+
+
+    </script>
+}
+

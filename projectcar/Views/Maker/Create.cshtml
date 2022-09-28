@@ -1,0 +1,58 @@
+﻿@model MakerModel
+@{
+
+}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6">
+            <h4>Car Maker</h4>
+            <p>
+         a business engaged in the manufacture of automobiles. auto maker, auto manufacturer, automaker, car manufacturer, carmaker. manufacturer, manufacturing business, maker - a business engaged in manufacturing some product. automobile industry - the manufacturers of automobiles considered collectively
+            </p>
+        </div>
+        <div class="col-6">
+            <div>
+                <h4>Add Maker</h4>
+                <hr />
+                <form class="" asp-action="Create" asp-controller="Maker" method="post">
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Name">Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Name" placeholder="Enter Name" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                  
+                 <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Location">Location<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Location" placeholder="Enter Location" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Location"></span>
+                        </div>
+                    </div>       
+
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <input type="submit" class="btn btn-back" value="Create" />
+                            <input type="reset" class="btn btn-dark" value="Reset" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

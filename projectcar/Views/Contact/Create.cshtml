@@ -1,0 +1,95 @@
+﻿@model ContactModel
+@{
+}
+<div class="container">
+    <div class="row">
+        <div class="col-9">
+            <form class="" id="myform" asp-action="Create" asp-controller="Contact" method="post" enctype="multipart/form-data">
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" asp-for="Name">Name<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Name" placeholder="Enter Name" />
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" asp-for="Email">Email<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Email" placeholder="Enter Email" />
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" asp-for="Phone">Phone<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input class="form-control" asp-for="Phone" placeholder="Enter Phone" />
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" asp-for="Comments">Comments<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" asp-for="Comments" placeholder="Enter Comments"></textarea>
+                    </div>
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="text-danger" asp-validation-for="Comments"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <input id="btnsubmit" type="button" class="btn btn-back" value="Send" />
+                        <input type="reset" class="btn btn-dark" value="Reset" />
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-3">
+            <h3 class="text-secondary">Contact</h3>
+            <p class="text-secondary"><span class="fa fa-envelope"></span> Email: ahmedgalalmohamed912</p>
+            <p class="text-secondary"><span class="fa fa-phone"></span> Phone: 01280904213</p>
+            <p class="text-secondary"><span class="fa fa-address-card"></span> Addess: Egypt-Alexandria-Al-Awayd-Mohsen</p>
+        </div>
+    </div>
+</div>
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $("#btnsubmit").click(function() {
+            var form = $("#myform");
+            if (form.valid()) {
+                $.post(form.attr("action"), {
+                    Name: $("#Name").val(),
+                    Email: $("#Email").val(),
+                    Phone: $("#Phone").val(),
+                    Comments: $("#Comments").val()
+                },
+                    function(data, status, xhr) {
+                        if (data == "ok") {
+                            form.trigger("reset");
+                        }
+                    }
+                );
+            }
+            else {
+                form.submit();
+            }
+        });
+
+    </script>
+}

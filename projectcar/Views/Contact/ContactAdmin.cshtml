@@ -1,0 +1,58 @@
+﻿@model List<ContactModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+<div class="container overflow-auto">
+    <div onclick="DeleteAllContacts(@Model.Capacity)" role="button" class="btn btn-danger float-end mb-2">Delete All</div>
+    <div class="accordion" id="accordionExample">
+        @foreach (var item in Model)
+        {
+            <div class="accordion-item mb-1" style="clear:right">
+                <h2 class="accordion-header" id="fad_@item.Id">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#fade_@item.Id" aria-expanded="true" aria-controls="fade_@item.Id">
+                        @item.Email
+                    </button>
+                </h2>
+                <div id="fade_@item.Id" class="accordion-collapse collapse" aria-labelledby="fad_@item.Id" data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex justify-content-between align-items-start">
+                        <strong>@item.Comments</strong>
+                        <a id="@item.Id" onclick="DeleteContacts(this.id)" class="fa fa-trash text-danger"></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="alert alert-info msgsucuss" style="display:none"></div>
+
+@section script{
+    <script>
+        function DeleteContacts(id_) {
+            $.post("Contact/Delete", { id: id_ }, function(data, x, y) {
+                if (data == "ok") {
+                    $("#p-content").load('@Url.Action("ContactAdmin","Contact",new{x=true})');
+                    $("div.msgsucuss").text("Delete This Comment").show().fadeOut(3000);
+                }
+            });
+        }
+
+        function DeleteAllContacts(cap) {
+            if (cap <= 0) {
+                $("div.msgsucuss").text("No Comments").show().fadeOut(3000);
+            }
+            else {
+                if (confirm("Are you sure Delete All Comments ?")) {
+                    $.post("Contact/DeleteAll", function(data, x, y) {
+                        if (data == "ok") {
+                            $("#p-content").load('@Url.Action("ContactAdmin","Contact",new{x=true})');
+                            $("div.msgsucuss").text("Delete All Comments ").show().fadeOut(3000);
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+}

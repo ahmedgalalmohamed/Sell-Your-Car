@@ -1,0 +1,93 @@
+﻿@model ModelBodyMake
+@{
+
+}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6">
+            <h4>Model year</h4>
+            <p>
+                The model year of a car is one of the main ways that cars of the same make and model are differentiated. However, a vehicle's model year is not necessarily the same as the year it was manufactured. It is important to note that the cost of car insurance changes with the age of a car.
+
+                You can usually purchase a vehicle for a given model year a few months before the calendar year actually starts. For example, the 2018 Honda Civic was available for purchase starting in late summer 2017.
+            </p>
+        </div>
+        <div class="col-6">
+            <div>
+                <h4>Add Model</h4>
+                <hr />
+                <form class="" asp-action="Create" asp-controller="Model" method="post">
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Model.Name">Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Model.Name" placeholder="Enter Name" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Model.Name"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Model.Yearmodel">Yearmodel<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Model.Yearmodel"   value="2016" placeholder="Enter Year Model" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Model.Yearmodel"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Model.BodyStyleId">Choose BodyStyle<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select" asp-for="Model.BodyStyleId">
+                                @foreach (var item in Model.BodyStyles)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Model.BodyStyleId"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Model.MakerId">Choose Maker<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select" asp-for="Model.MakerId">
+                                @foreach (var item in Model.Makers)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Model.MakerId"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <input type="submit" class="btn btn-back" value="Create" />
+                            <input type="reset" class="btn btn-dark" value="Reset" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

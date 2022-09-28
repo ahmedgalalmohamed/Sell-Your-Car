@@ -1,0 +1,211 @@
+﻿@model UserModel
+
+<input class="form-control" asp-for="Username" hidden />
+
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" id="tab_info" aria-current="page">Updata Info</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="tab_password">Updata Password</a>
+    </li>
+</ul>
+
+<form id="myformpassword" style="display:none;background-color:#fff;" class="p-4  shadow" asp-action="UpdateUser" asp-controller="Dashboard" method="post">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="oldpassword">Old Password<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" type="password" id="oldpassword" name="oldpassword" placeholder="Enter Old Password" required />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" id="oldpassword"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="Password">Password<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" type="password" asp-for="Password" placeholder="Enter Password" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="ConfirmPas">ConfirmPas<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" type="password" asp-for="ConfirmPas" placeholder="Enter ConfirmPas" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="ConfirmPas"></span>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <input type="button" id="btnsubmitpassword" class="btn btn-back" value="Update" />
+            <input type="reset" class="btn btn-dark" onclick="test()" value="Reset" />
+        </div>
+    </div>
+
+</form>
+
+
+<form id="myforminfo" asp-action="UpdateUser" style="background-color:#fff;" class="p-4 shadow" asp-controller="Dashboard" method="post" enctype="multipart/form-data">
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="fname">First Name<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="fname" placeholder="Enter First Name" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="fname"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="lname">First Last<span class="text-danger">*</span></label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="lname" placeholder="Enter First Last" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="lname"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" for="files">Image</label>
+        <div class="col-sm-9">
+            <input type="file" class="form-control" id="files" name="files" placeholder="Choose Image" accept="image/*" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="Address">Address</label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="Address" placeholder="Enter Address" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="Address"></span>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" asp-for="CompanyName">CompanyName</label>
+        <div class="col-sm-9">
+            <input class="form-control" asp-for="CompanyName" placeholder="Enter CompanyName" />
+        </div>
+        <div class="col-3"></div>
+        <div class="col-9">
+            <span class="text-danger" asp-validation-for="CompanyName"></span>
+        </div>
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col-3"></div>
+        <div class="col-9">
+            <input type="button" id="btnsubmitinfo" class="btn btn-back" value="Update" />
+            <input type="reset" class="btn btn-dark" onclick="test()" value="Reset" />
+        </div>
+    </div>
+
+</form>
+
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $(document).ready(function() {
+            //taps
+            $("#tab_password").click(function() {
+                $("#myforminfo").hide();
+                $("#myformpassword").show();
+                $(this).addClass("active");
+                $("#tab_info").removeClass("active");
+            });
+            $("#tab_info").click(function() {
+                $("#myformpassword").hide();
+                $("#myforminfo").show();
+                $("#tab_password").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+
+        function test() {
+
+        }
+
+        $("#btnsubmitinfo").click(function() {
+            var form = $("#myforminfo");
+            if (form.valid()) {
+                var formData = new FormData();
+                var fileData = $("#files")[0].files[0];
+                formData.append("fileinp", fileData);
+                formData.append("fname", $("#fname").val());
+                formData.append("lname", $("#lname").val());
+                formData.append("CompanyName", $("#CompanyName").val());
+                formData.append("Address", $("#Address").val());
+                formData.append("Username", $("#Username").val());
+                $.ajax({
+                    type: "POST",
+                    url: form.attr("action"),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $("#p-content").load('@Url.Action("Profile",new{x=true})');
+                        var d = new Date();
+                        $("#userimg").attr("src", data + "?" + d.getTime())
+                        $("#msginfo").text("Updated").show().fadeOut(5000);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    }
+                });
+            }
+            else {
+                form.submit();
+            }
+
+        });
+
+        $("#btnsubmitpassword").click(function() {
+            var form = $("#myformpassword");
+            $.post("Dashboard/OldPassword", { oldpassword: $("#oldpassword").val() }, function(data, status, xhr) {
+                if (data == true) {
+                    if (form.valid()) {
+                        $.post(form.attr("action"), {
+                            Username: $("#Username").val(),
+                            Password: $("#Password").val()
+                        },
+                            function(data, status, xhr) {
+                                if (data == "ok") {
+                                    form.trigger("reset");
+                                    $("#msginfo").text("Updated").show().fadeOut(5000);
+                                }
+                            }
+                        );
+                    }
+                    else {
+                        form.submit();
+                    }
+                }
+                else {
+                    $("span#oldpassword").text("Old Password Not Correct").show().fadeOut(3000);
+                }
+            });
+        });
+
+    </script>
+}

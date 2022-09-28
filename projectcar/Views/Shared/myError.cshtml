@@ -1,0 +1,8 @@
+﻿@model ErrorModel
+@{
+
+}
+<div class="container">
+    <h1>Error</h1>
+    <p class="alert alert-danger">@Model.MessageError<a class="nav-link d-inline-block" asp-action="@ViewData["action"]" asp-controller="@ViewData["controller"]">Return</a></p>
+</div>

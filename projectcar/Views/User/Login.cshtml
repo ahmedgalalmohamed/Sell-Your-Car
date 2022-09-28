@@ -1,0 +1,76 @@
+﻿@model UserModel
+<div class="container mt-3">
+    <div class="alert-warning msgsucuss" style="display:none"></div>
+    <div class="row">
+        <div class="col-md-6 col-sm-6  col-12">
+            <h4>Login to your account</h4>
+            <p>
+                You must be signed in to post cars for sale. If you are not a registered member, please create an account (using the SIGNUP link on the top menu) first then sign in.
+            </p>
+        </div>
+        <div class="col-md-6 col-sm-6  col-12">
+            <div>
+                <h4>Login to your Account</h4>
+                <hr />
+                <form class="" id="myform" asp-action="Login" asp-controller="User" method="post">
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Email">Email<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Email" placeholder="Enter Email" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Password">Password<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="password" asp-for="Password" placeholder="Enter Password" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <input type="button" id="btnsubmit" class="btn btn-back" value="Login" />
+                            <input type="reset" class="btn btn-dark" value="Reset" />
+                        </div>
+                    </div>
+
+                </form>
+                <div class="text-center">
+                    <span>Forgot Password ? | </span>
+                    <a asp-action="Create" asp-controller="User">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $("#btnsubmit").click(function() {
+            var form = $("#myform");
+            if (form.valid()) {
+                $.post(form.attr("action"), { Email: $("#Email").val(), Password: $("#Password").val() }, function(data, x, y) {
+                    if (data=="y") {
+                         window.location.href = "Home/Index";
+                    }
+                    else {
+                        $("#msgerror").text(data).show().fadeOut(5000);
+                    }
+                });
+            }
+            else {
+                form.submit();
+            }
+        });
+    </script>
+}

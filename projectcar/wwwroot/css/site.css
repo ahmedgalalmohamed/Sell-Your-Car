@@ -1,0 +1,55 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+
+.link-hover:hover {
+    border-bottom: 1px solid #2075DC;
+    color: #4D34BC !important;
+    padding-bottom: 0px;
+}
+
+.btn-bottom::after, .btn-top::after {
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 13px;
+    border: none;
+}
+
+
+.btn-bottom::after {
+    content: "\f107";
+}
+
+.btn-top::after {
+    content: "\f106";
+}
+
+.active {
+    color: #4D34BC;
+    border-bottom: 1px solid #2075DC;
+}
+
+.bg-white {
+    background-color: white !important;
+}
+
+.title-web {
+    text-shadow: 3px 2px 2px #867D7D;
+    font-family: 'Times New Roman', Times, serif;
+}

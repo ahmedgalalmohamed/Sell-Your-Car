@@ -1,0 +1,199 @@
+﻿@model UserModel
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 col-sm-6  col-12">
+            <h4>Register for New Account</h4>
+            <p>
+                You have to be a registered member (create an account) to post cars for sale. Please fill out the form to the right to create an account. Only the fields with a star are required. Fields without a star are optional. Once you complete the registration process you can log into your account and post cars for sale.
+            </p>
+            <br />
+            <h4>How Your Data Is Used</h4>
+            <p>
+                Any information you submit in the process of creating an account will only be used by adsx5 to communicate with you regarding your account and/or to inform you about special offers
+            </p>
+        </div>
+        <div class="col-md-6 col-sm-6  col-12">
+            <div>
+                <h4>Register your Account</h4>
+                <hr />
+                <form class="" id="signupform" asp-action="Create" asp-controller="User" method="post" enctype="multipart/form-data">
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="fname">First Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="fname" placeholder="Enter First Name" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="fname"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="lname">First Last<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="lname" placeholder="Enter First Last" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="lname"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Email">Email<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Email" placeholder="Enter Email" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Username">Username<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Username" placeholder="Enter Username" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Username"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Gender">Choose Gender<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <select class="form-select" asp-for="Gender">
+                                <option value="male">
+                                    Male
+                                </option>
+                                <option value="female">
+                                    Female
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Gender"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Img">Image</label>
+                        <div class="col-sm-9">
+                            <input type="file" class="form-control" asp-for="Img" placeholder="Choose Image" accept="image/*" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Img"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Address">Address</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Address" placeholder="Enter Address" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="CompanyName">CompanyName</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="CompanyName" placeholder="Enter CompanyName" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="CompanyName"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Phone">Phone<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" asp-for="Phone" placeholder="Enter Phone" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Phone"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="Password">Password<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="password" asp-for="Password" placeholder="Enter Password" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-3 col-form-label" asp-for="ConfirmPas">ConfirmPas<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="password" asp-for="ConfirmPas" placeholder="Enter ConfirmPas" />
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <span class="text-danger" asp-validation-for="ConfirmPas"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-9">
+                            <input type="button" id="signupbtn" class="btn btn-back" value="Register" />
+                            <input type="reset" class="btn btn-dark" value="Reset" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script>
+        $("#signupbtn").click(function() {
+            var form = $("#signupform");
+            if (form.valid()) {
+                $.post("/User/chkEmail", { email: $("#Email").val() }, function(data) {
+                    if (data == "n") {
+                        $.post("/User/chkUsername", { Username: $("#Username").val() }, function(data) {
+                            if (data == "n") {
+                                $.post("/User/chkPhone", { phone: $("#Phone").val() }, function(data) {
+                                    if (data == "n") {
+                                        form.submit();
+                                    }
+                                    else {
+                                        $("#msgerror").text("This Phone Found").show().fadeOut(5000);
+                                    }
+                                });
+                            }
+                            else {
+                                $("#msgerror").text("This Username Found").show().fadeOut(5000);
+                            }
+                        });
+                    }
+                    else {
+                        $("#msgerror").text("This Email Found").show().fadeOut(5000);
+                    }
+                });
+            }
+            else {
+                form.submit();
+            }
+        });
+    </script>
+}

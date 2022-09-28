@@ -1,0 +1,147 @@
+﻿@model UserModel
+@{
+    string role = Context.Session.GetString("role");
+}
+
+<div class="container-fluid p-0 vh-100">
+    <div class="row h-100">
+        <div class="col-md-3 col-sm-4 col-12 p-0">
+
+            <aside class="">
+
+                <div class="mb-2 text-center">
+                    <span class="fa-solid fa-book-open fs-3"></span>
+                    <a asp-action="Index" class="text-decoration-none text-black"><span class="fs-3 text-shadow">User DashBoard</span></a>
+                </div>
+
+                <div class="d-flex mb-2 p-2 justify-content-center">
+                    <img src="@Model.Img" id="userimg" width="50px" height="50px" class="rounded-pill" />
+                    <div class="d-flex flex-column mx-3">
+                        <p class="fw-bold user-name">@Model.Username</p>
+                        <span class="text-secondary text-capitalize">@Model.role</span>
+                    </div>
+                    <span class="fa fa-square-check text-success mt-2"></span>
+                </div>
+
+                <div class="container-fluid p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-0">
+                            <a class="nav-link text-black active_link" asp-action="Index" asp-controller="Home">
+                                <span class="fa fa-home mx-2"></span>
+                                Home
+                            </a>
+                        </li>
+                        @if (role == "user")
+                        {
+                            <li class="list-group-item p-0">
+                                <a class="nav-link text-black active_link" id="addcar">
+                                    <span class="fa fa-plus mx-2"></span>
+                                    Add Car
+                                </a>
+                            </li>
+                            <li class="list-group-item p-0">
+                                <a class="nav-link text-black  active_link" id="yourcars">
+                                    <span class="fa fa-car-side mx-2"></span>
+                                    Your Cars
+                                </a>
+                            </li>
+                        }
+                        <li class="list-group-item p-0">
+                            <a class="nav-link text-black active_link" id="profile">
+                                <span class="fa fa-user mx-2"></span>
+                                Profile
+                            </a>
+                        </li>
+
+                        @if (role == "system admin")
+                        {
+                            <li class="list-group-item p-0">
+                                <a class="nav-link text-black active_link" id="systemadmin">
+                                    <span class="fa fa-users mx-2"></span>
+                                    System Admin
+                                </a>
+                            </li>
+                            <li class="list-group-item p-0">
+                                <a class="nav-link text-black active_link" id="contact">
+                                    <span class="fa fa-comments mx-2"></span>
+                                    Comments
+                                </a>
+                            </li>
+                        }
+                        <li class="list-group-item p-0">
+                        </li>
+                    </ul>
+                </div>
+
+            </aside>
+        </div>
+        <div class="col-md-9 col-sm-8 col-12 content">
+
+            <p class="text-white bg-dark p-2 m-3 mb-0">
+                <span class="fa fa-bars"></span>
+                <span id="title_content">DashBoard</span>
+            </p>
+
+            <div class="p-2 mx-3 border-0 mb-3" id="userdata">
+                <div class="log text-center mb-2">
+                </div>
+                <div id="p-content" class="bg-white p-3">
+                    <div class="progress">
+                        <div class="progress-bar bg-success w-25" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-info w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-warning w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                    </div>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-danger w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                    </div>
+                    <div class="mt-2">
+                        @for (var i = 0; i < 5; i++)
+                        {
+                            <span class="fa fa-star"></span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section script{
+    <script src="~/js/dashboard.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function() {
+            function empty_content() { $("#p-content").empty() }
+            $("#profile").click(function() {
+                empty_content();
+                $("#p-content").load('@Url.Action("Profile",new{x=true})');
+                $("#title_content").text("Profile");
+            });
+            $("#addcar").click(function() {
+                empty_content();
+                $("#p-content").load('@Url.Action("Create","Car",new{x=true})');
+                $("#title_content").text("Add Car");
+            });
+            $("#yourcars").click(function() {
+                empty_content();
+                $("#p-content").load('@Url.Action("AllCarForUser","Car",new{x=true})');
+                $("#title_content").text("Your Cars");
+            });
+            $("#systemadmin").click(function() {
+                empty_content();
+                $("#p-content").load('@Url.Action("SystemAdmin",new{x=true})');
+                $("#title_content").text("SystemAdmin");
+            });
+            $("#contact").click(function() {
+                empty_content();
+                $("#p-content").load('@Url.Action("ContactAdmin","Contact",new{x=true})');
+                $("#title_content").text("Comments");
+            });
+        });
+    </script>
+}
+
+

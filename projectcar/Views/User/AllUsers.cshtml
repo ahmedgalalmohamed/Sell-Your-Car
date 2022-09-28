@@ -1,0 +1,61 @@
+﻿@model List<UserModel>
+
+@{
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-9 col-sm-9" id="carForUser">
+            <form class="d-flex w-50" asp-action="AllUsers" asp-controller="User" id="searchform">
+                <input class="form-control rounded-0 " name="name" id="name" type="search" placeholder="Name" required>
+                <input class="btn btn-secondary rounded-0" type="submit"  value="Search" />
+            </form>
+            <span class="fa fa-users fs-5"></span>
+            <span class="fs-5">All Users</span>
+            <div class="border border-primary"></div>
+            <div id="searchForUser">
+                @{
+                    if (Model.Capacity > 0)
+                    {
+                        <ul class="list-group list-group-flush my-2">
+                            @foreach (var item in Model)
+                            {
+                                if (item.role == "user")
+                                {
+                                    <li class="list-group-item shadow text-secondary bg-white d-flex mt-1">
+                                        <div class="position-relative">
+                                            <span class="position-absolute  bg-white rounded" style="left:26%;top:75%;">@item.Cars.Count Cars</span>
+                                            <a id="@item.Username" onclick="carForUser(this.id)">
+                                                <img class="rounded-circle" width="100px" height="100px" src="@item.Img" alt="@item.Img" />
+                                            </a>
+                                        </div>
+                                        <div class="align-self-center mx-2 d-flex flex-column">
+                                            <p class="fw-bold user-name">@item.fname @item.lname</p>
+                                            <span class="fw-bold">@item.Email</span>
+                                            <span class="text-secondary text-capitalize">@item.Phone</span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center mt-2">No User Found</div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-3 col-sm-3">
+        </div>
+    </div>
+</div>
+@section script{
+    <script>
+        function carForUser(id) {
+            if (id == null || id == "") { return; }
+            var car_User = $("#carForUser");
+            car_User.empty();
+            car_User.load('@Url.Action("AllCarForUserHome","Car")?username=' + id);
+        }
+    </script>
+}

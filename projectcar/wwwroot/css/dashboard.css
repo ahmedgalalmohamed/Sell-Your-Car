@@ -1,0 +1,21 @@
+﻿html {
+    box-sizing:border-box;
+    margin:0px;
+    padding:0px;
+    overflow-x:hidden;
+}
+
+.user-name {
+    margin: 0px;
+    color: #293a4f;
+}
+
+.active {
+    background-color: #F2EDF3;
+}
+label.error {
+    color:red;
+    background-color:cornsilk;
+    padding:10px; 
+    border-radius:10px;
+}

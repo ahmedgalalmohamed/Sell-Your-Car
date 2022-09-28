@@ -1,0 +1,134 @@
+﻿@model CarModel
+
+@{
+}
+<div class="container mt-3">
+    <ul class="nav">
+        <li class="nav-item">
+            <button class="btn btn-secondary bg-dark rounded-0" id="tab_cars">Cars</button>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-secondary rounded-0" id="tab_contact">Contact</button>
+        </li>
+    </ul>
+</div>
+
+<div id="cars" class="container my-3">
+    <figure class="figure">
+        <img src="@Model.Img" class="figure-img img-fluid rounded" alt="@Model.price">
+        <figcaption class="figure-caption">@Model.User.Email</figcaption>
+    </figure>
+    <div class="bg-light shadow">
+        <ul class="list-group  list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-clock"></span>
+                    <span>VIN</span>
+                </div>
+                <span class="">@Model.VIN</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-clock"></span>
+                    <span>Added</span>
+                </div>
+                <span class="">@Model.AddWebsit</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-sack-dollar"></span>
+                    <span>Price</span>
+                </div>
+                <span>$@Model.price</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-diamond"></span>
+                    <span>Model</span>
+                </div>
+                <span class="">@Model.Model.Name</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-calendar"></span>
+                    <span>YearModel</span>
+                </div>
+                <span>@Model.Model.Yearmodel</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-gauge"></span>
+                    <span>Speed</span>
+                </div>
+                <span>@Model.Speed K/h</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-gears"></span>
+                    <span>ShiftLever</span>
+                </div>
+                <span>@Model.ShiftLever</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-gas-pump"></span>
+                    <span>Fuel</span>
+                </div>
+                <span>@Model.Fuel</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-location-dot"></span>
+                    <span>Location</span>
+                </div>
+                <span>@Model.Location</span>
+            </li>
+            <li class="list-group-item d-flex  justify-content-between align-items-start">
+                <div class="ms-2  me-auto">
+                    <span class="fa fa-phone"></span>
+                    <span>Phone</span>
+                </div>
+                <span>@Model.User.Phone</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div id="contacts" style="display:none" class="container  mt-3">
+    <table class="table table-bordered overflow-auto">
+        <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.User.Email</td>
+                <td>@Model.User.Phone</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@section script{
+
+    <script>
+        $(document).ready(function() {
+            //taps
+            $("#tab_cars").click(function() {
+                $("#contacts").hide();
+                $("#cars").show();
+                $(this).addClass("bg-dark");
+                $("#tab_contact").removeClass("bg-dark");
+            });
+            $("#tab_contact").click(function() {
+                $("#cars").hide();
+                $("#contacts").show();
+                $("#tab_cars").removeClass("bg-dark");
+                $(this).addClass("bg-dark");
+            });
+        });
+    </script>
+}

@@ -1,0 +1,46 @@
+﻿@model ListMakerMakerVM
+@{
+    var x = 0;
+}
+<div class="container">
+    <div class="text-end">
+        <a asp-action="Create" asp-controller="Maker" class="btn btn-back mb-2 text-white rounded-pill">
+            <span class="fa-solid fa-plus text-white"></span>
+            Add Maker
+        </a>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Num</th>
+                <th scope="col">Name</th>
+                <th scope="col">Location</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.makers)
+            {
+                x++;
+                <tr>
+                    <td>@x</td>
+                    <td>@item.Name</td>
+                    <td>@item.Location</td>
+                    <td class="" width="10%">
+                        <div class="d-flex justify-content-around">
+                            <a class="fa fa-trash text-decoration-none text-danger fs-5 delete" asp-action="Delete" asp-controller="Maker" asp-route-name="@item.Name"></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+@section script{
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}

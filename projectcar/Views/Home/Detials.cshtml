@@ -1,0 +1,84 @@
+﻿@model HomeDetialsVM
+@{
+
+}
+<div class="container">
+    <div class="row">
+        <div class="col-9" id="car_user">
+            <span class="fa fa-car  fs-5"></span>
+            <span class="fs-5">ALL CARS</span>
+            <div class="border border-primary"></div>
+            @{
+                if (Model.bodyStyle.Models.Count > 0)
+                {
+                    <ul class="list-group list-group-flush my-2">
+                        @foreach (var modelbody in Model.bodyStyle.Models)
+                        {
+                            @foreach (var car in modelbody.Cars)
+                            {
+                                <li class="list-group-item mt-1 shadow text-secondary" style="background-color:white">
+                                    <div class="d-flex mb-2 p-2">
+                                        <div class="position-relative">
+                                            <span class="position-absolute text-white px-2 rounded" style="background-color:#F37655;font-size:15px">$@car.price</span>
+                                            <span class="position-absolute bg-success text-white rounded  text-capitalize" style="top:20%;font-size:12px;padding:1px">@car.Usage</span>
+                                            <a id="@car.VIN" onclick="carDetials(this.id)"><img src="@car.Img" id="userimg" width="150px" height="150px" /></a>
+                                        </div>
+                                        <div class="d-flex flex-column mx-3">
+                                            <p class="fw-bold fs-3 text-dark">@modelbody.Yearmodel @modelbody.Name @modelbody.Maker.Name</p>
+                                            <div class="text-secondary bg-light p-1 border rounded text-capitalize">
+                                                <img src="@Model.bodyStyle.Img" width="30px" height="30px" />
+                                                <span>@Model.bodyStyle.Name</span>
+                                                <span class="fa fa-location-dot mx-1"></span>
+                                                <span>@car.Location</span>
+                                                <span class="fa fa-sack-dollar mx-1"></span>
+                                                <span>@car.price $</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <div class="alert alert-info text-center mt-2">Not Found Cars</div>
+                }
+            }
+        </div>
+        <div class="col-3">
+            <i class="fa fa-magnifying-glass fs-4 text-secondary"></i><span class="fs-4 text-secondary">Search</span>
+            <form class="d-flex" asp-action="Detials" asp-controller="Home">
+                <input class="form-control rounded-0 " name="name" type="search" placeholder="Search" aria-label="Search" required>
+                <button class="btn btn-secondary rounded-0" type="submit">Search</button>
+            </form>
+            <p class="mt-2 text-secondary">
+                <span class="fa fa-location-dot"></span>
+                Top Location
+            </p>
+
+
+            <ul class="list-group list-group-flush mt-2">
+                @foreach (var item in Model.maker)
+                {
+                    <li class="list-group-item text-secondary">
+                        <span class="fa fa-angle-right"></span>
+                        @item.Location
+                        <span>(@item.Models.Count)</span>
+                    </li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        function carDetials(id) {
+            $("#car_user").empty();
+            var iw = true;
+            $("#car_user").load('@Url.Action("Detials","Car")?VIN=' + id);
+        }
+    </script>
+}

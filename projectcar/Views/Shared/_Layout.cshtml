@@ -1,0 +1,168 @@
+﻿@{
+    string path = Context.Request.Path;
+    string user = Context.Session.GetString("username");
+    string role = Context.Session.GetString("role");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Car</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+    <link rel="stylesheet" href="~/projectcar.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/font/fontawesome-free-6.1.2-web/css/all.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/wheel-icon.png" />
+</head>
+<body>
+    @if (
+    !path.ToLower().Contains("dashboard") &&
+    !path.ToLower().Contains("car") &&
+    !path.ToLower().Contains("profile") &&
+    !path.ToLower().Contains("contact/contact")
+    )
+    {
+        <header>
+            <nav style="background-color:#F7F7F7" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow d-flex flex-column p-0">
+                <div class="d-flex justify-content-end bg-dark w-100  text-white p-1">
+                    <a href="https://www.facebook.com/profile.php?id=100010085434356" target="_blank"><i class="fa-brands fa-facebook  mx-2"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter  mx-2"></i></a>
+                    <a href="#"><i class="fa-brands fa-google-plus-g  mx-2"></i></a>
+                    <a href="https://www.linkedin.com/in/ahmed-galal-mohamed-241581224/" target="_blank"><i class="fa-brands fa-linkedin  mx-2" target="_blank"></i></a>
+                    <a href="https://github.com/ahmedgalalmohamed" target="_blank"><i class="fa-brands fa-github  mx-2" target="_blank"></i></a>
+                </div>
+                <div class="container-fluid">
+                    <div class="">
+                        <img  width="200px" src="~/images/logo_.png"/>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1 text-dark justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold link-hover active_link" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold  link-hover active_link" asp-area="" asp-controller="Home" asp-action="AdvancedSearch">ADVANCED SEARCH</a>
+                            </li>
+                            <li class="nav-item dropdown" id="parentlist">
+                                <a class="nav-link btn-bottom pb-0 link-hover fw-bold active_link navbarDarkDropdownMenuLink" asp-controller="Home" asp-action="Index" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    PAGES
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-light showlist" id="showlist" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="AllUsers">User</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="AboutUs">About Us</a></li>
+                                    @if (role == "system admin" || role == "admin")
+                                    {
+                                        <li>
+                                            <a class="dropdown-item active_link" asp-area="" asp-controller="BodyStyle" asp-action="Display">
+                                                BodyStyle
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item  active_link" asp-area="" asp-controller="Model" asp-action="Display">
+                                                Model
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item active_link" asp-area="" asp-controller="Maker" asp-action="Display">
+                                                Maker
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link link-hover active_link fw-bold" asp-area="" asp-controller="Contact" asp-action="Create">
+                                    CONTACT
+                                </a>
+                            </li>
+
+                            @{
+                                if (user == null)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link link-hover active_link fw-bold" asp-area="" asp-controller="User" asp-action="Create">
+                                            SIGNUP
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link link-hover active_link fw-bold" asp-area="" asp-controller="User" asp-action="Login">
+                                            SIGNIN
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link link-hover fw-bold" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                            USER DASHBOARD
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link link-hover fw-bold" asp-area="" asp-controller="User" asp-action="Logout">
+                                            LOGOUT
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            @if (
+           (!path.ToLower().Contains("home") && path != "/") ||
+           path.ToLower().Contains("/home/detials") ||
+           path.ToLower().Contains("/home/aboutus") ||
+           path.ToLower().Contains("/home/contact")||
+           path.ToLower().Contains("/home/advancedsearch")
+
+           )
+            {
+                <div class="links">
+                    <div class="container mt-3">
+                        <div class="row">
+                            <div class="col-10">
+                                <a class="text-decoration-none" asp-action="@ViewData["action"]" asp-controller="@ViewData["controller"]"><p>@ViewData["link"]</p></a>
+                            </div>
+                            <div class="col-2">
+                                <p>@path</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </header>
+    }
+    <div class="container-fluid p-0">
+        <main role="main" id="main">
+            <div style="display:none" id="msgerror" class="alert alert-danger text-center mb-2"></div>
+            <div style="display:none" id="msginfo" class="alert alert-info text-center mb-2"></div>
+            <div style="display:none" id="msgwarning" class="alert alert-warning text-center mb-2"></div>
+            @RenderBody()
+        </main>
+    </div>
+    @if (
+    !path.ToLower().Contains("dashboard")
+    && !path.ToLower().Contains("car") &&
+    !path.ToLower().Contains("profile") &&
+    !path.ToLower().Contains("contact/contact")
+    )
+    {
+        <footer class="border-top footer text-muted text-center">
+            <div class="container">
+                &copy; 2022 - By Ahmed Galal
+            </div>
+        </footer>
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("script",required:false)
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

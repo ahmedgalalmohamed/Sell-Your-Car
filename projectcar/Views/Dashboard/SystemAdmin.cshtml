@@ -1,0 +1,76 @@
+﻿@model List<UserModel>
+@{
+    var x = 0;
+}
+
+<table class="table table-bordered overflow-auto " style="background-color:#fff;">
+    <thead>
+        <tr>
+            <th scope="col">Num</th>
+            <th scope="col">Email</th>
+            <th scope="col">Username</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Num of Car</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            x++;
+            if (item.role != "system admin")
+            {
+                <tr>
+                    <td>@x</td>
+                    <td>@item.Email</td>
+                    <td>@item.Username</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Cars.Count</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <button onclick="Changerole(this.id)" id="@item.Username @item.Cars.Count" class="btn btn-back text-capitalize">@item.role</button>
+                            <span onclick="Changestate(this.id)" id="@item.Username" class="btn btn-success text-capitalize">@item.state</span>
+                            <span onclick="deleteUser(this.id)" id="@item.Username" class="btn btn-danger">Delete</span>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+
+
+@section script{
+    <script>
+        function Changerole(username_) {
+            const result = username_.split(/\s+/);
+            if (result[1] == "0") {
+                $.post("/Dashboard/ChangeRole", { username: result[0] }, function(data, x, y) {
+                    $("#p-content").load('@Url.Action("SystemAdmin",new{x=true})');
+                });
+            }
+            else {
+                $("#msgerror").text("Not Allow This User become Admin Because He Have Cars " + result[1]).show().fadeOut(5000);
+            }
+        }
+
+        function Changestate(username_) {
+            $.post("/Dashboard/ChangeState", { username:username_  }, function(data, x, y) {
+                $("#p-content").load('@Url.Action("SystemAdmin",new{x=true})');
+            });
+        }
+
+        function deleteUser(username_) {
+            $.post("/User/DeleteUser", { username: username_ }, function(data) {
+                if (data == "y") {
+                    $("#p-content").load('@Url.Action("SystemAdmin",new{x=true})');
+                    $("#msginfo").text("Deleted").show().fadeOut(5000);
+                }
+                else {
+                    $("#msgerror").text("Error In Delete").show().fadeOut(5000);
+                }
+            });
+        }
+    </script>
+}
